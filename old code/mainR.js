@@ -13,7 +13,7 @@ function addBSCSContent() {
                 { name: 'ICT Lab', credits: 1 },
                 { name: 'Pak Studies', credits: 2 },
                 { name: 'Calculus', credits: 3 },
-                { name: 'English General', credits: 3 },
+                { name: 'English General', credits: 3 } ,
                 { name: 'Physics', credits: 3 }
             ]
         },
@@ -40,33 +40,9 @@ function addBSCSContent() {
                 { name: 'Multi-Variate Calculus', credits: 3 },
                 { name: 'Probability and Statistics', credits: 3 }
             ]
-        },
-        {
-            semester: 4,
-            subjects: [
-                { name: 'COAL Theory', credits: 3 },
-                { name: 'COAL Lab', credits: 1 },
-                { name: 'Database Theory', credits: 3 },
-                { name: 'Database Lab', credits: 1 },
-                { name: 'OS Theory', credits: 3 },
-                { name: 'OS Lab', credits: 1 },
-                { name: 'Logic and Critical Thinking', credits: 3 },
-                { name: 'Software Engineering', credits: 3 }
-            ]
-        },
-        {
-            semester: 5,
-            subjects: [
-                { name: 'Networking Theory', credits: 3 },
-                { name: 'Networking Lab', credits: 1 },
-                { name: 'Entrepreneurship', credits: 3 },
-                { name: 'Theory of Automata', credits: 3 },
-                { name: 'Numerical Computing', credits: 3 },
-                { name: 'Data Mining', credits: 3 }
-            ]
         }
     ];
-
+    
     function addKnownSubjects(semesterId, name = '', credits = '') {
         const subjectsDiv = document.getElementById(`subjects-${semesterId}`);
         const subjectDiv = document.createElement('div');
@@ -83,10 +59,10 @@ function addBSCSContent() {
                 </select>
             </div>
             <label class="credits">Credit Hours: ${credits}</label>
-            <button class="deactivate-btn" onclick="toggleDeactivate(this)">Deactivate</button>
         `;
         subjectsDiv.appendChild(subjectDiv);
     }
+
 
     bscsData.forEach(data => {
         addSemester();
@@ -102,10 +78,7 @@ function addSemester() {
     semesterDiv.className = 'semester';
     semesterDiv.id = `semester-${semesterCount}`;
     semesterDiv.innerHTML = `
-        <div class="semester-header">
-            <h3>Semester ${semesterCount}</h3>
-            <button class="deactivate-btn" onclick="toggleDeactivateSemester(${semesterCount})">Deactivate Semester</button>
-        </div>
+        <h3>Semester ${semesterCount}</h3>
         <div id="subjects-${semesterCount}"></div>
         <div class="buttons">
             <button onclick="addSubject(${semesterCount})" class="add-btn">Add Subject</button>
@@ -128,7 +101,6 @@ function addSubject(semesterId, name = '', credits = '') {
             <option value="marks">Marks</option>
         </select>
         <input type="number" placeholder="Credit Hours" class="credits" value="${credits}">
-        <button class="deactivate-btn" onclick="toggleDeactivate(this)">Deactivate</button>
     `;
     subjectsDiv.appendChild(subjectDiv);
 }
@@ -141,27 +113,9 @@ function deleteSubject(semesterId) {
     }
 }
 
-function toggleDeactivate(button) {
-    const subjectDiv = button.parentElement;
-    subjectDiv.classList.toggle('deactivated');
-    updateCGPA();
-}
-
-function toggleDeactivateSemester(semesterId) {
-    const semesterDiv = document.getElementById(`semester-${semesterId}`);
-    semesterDiv.classList.toggle('deactivated');
-    updateCGPA();
-}
-
 function calculateSGPA(semesterId) {
-    const semesterDiv = document.getElementById(`semester-${semesterId}`);
-    if (semesterDiv.classList.contains('deactivated')) {
-        document.getElementById(`sGPA-${semesterId}`).textContent = `Semester GPA (sGPA): 0.00 (Deactivated)`;
-        return;
-    }
-
     const subjectsDiv = document.getElementById(`subjects-${semesterId}`);
-    const subjects = subjectsDiv.querySelectorAll('.subject:not(.deactivated)');
+    const subjects = subjectsDiv.querySelectorAll('.subject');
     let semesterCredits = 0;
     let semesterWeightedGPA = 0;
 
@@ -170,10 +124,12 @@ function calculateSGPA(semesterId) {
         const creditsElement = subject.querySelector('.credits');
         const gpaOrMarksSelect = subject.querySelector('.gpaOrMarks');
 
+        // Extract marks and determine GPA
         const marks = parseFloat(marksInput.value) || 0;
         const isGPA = gpaOrMarksSelect.value === 'gpa';
         const gpa = isGPA ? marks : marksToGPA(marks);
 
+        // Extract credits (handle both input and label)
         let credits = 0;
         if (creditsElement.tagName === 'INPUT') {
             credits = parseFloat(creditsElement.value) || 0;
@@ -195,17 +151,19 @@ function updateCGPA() {
     totalCredits = 0;
     totalWeightedGPA = 0;
 
-    document.querySelectorAll('.semester:not(.deactivated)').forEach(semester => {
-        const subjects = semester.querySelectorAll('.subject:not(.deactivated)');
+    document.querySelectorAll('.semester').forEach(semester => {
+        const subjects = semester.querySelectorAll('.subject');
         subjects.forEach(subject => {
             const marksInput = subject.querySelector('.marks');
             const creditsElement = subject.querySelector('.credits');
             const gpaOrMarksSelect = subject.querySelector('.gpaOrMarks');
 
+            // Extract marks and determine GPA
             const marks = parseFloat(marksInput.value) || 0;
             const isGPA = gpaOrMarksSelect.value === 'gpa';
             const gpa = isGPA ? marks : marksToGPA(marks);
 
+            // Extract credits
             let credits = 0;
             if (creditsElement.tagName === 'INPUT') {
                 credits = parseFloat(creditsElement.value) || 0;
@@ -220,7 +178,7 @@ function updateCGPA() {
     });
 
     const cumulativeGPA = totalCredits > 0 ? (totalWeightedGPA / totalCredits) : 0;
-    document.getElementById('cGPA').textContent = `Cumulative GPA (cGPA): ${cumulativeGPA.toFixed(3)}`;
+    document.getElementById('cGPA').textContent = `Cumulative GPA (cGPA): ${cumulativeGPA.toFixed(2)}`;
 }
 
 function marksToGPA(marks) {
@@ -233,7 +191,7 @@ function marksToGPA(marks) {
 }
 
 document.body.addEventListener('input', () => {
-    const semesters = document.querySelectorAll('.semester:not(.deactivated)');
+    const semesters = document.querySelectorAll('.semester');
     semesters.forEach(semester => {
         calculateSGPA(semester.id.split('-')[1]);
     });

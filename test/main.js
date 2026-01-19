@@ -40,30 +40,6 @@ function addBSCSContent() {
                 { name: 'Multi-Variate Calculus', credits: 3 },
                 { name: 'Probability and Statistics', credits: 3 }
             ]
-        },
-        {
-            semester: 4,
-            subjects: [
-                { name: 'COAL Theory', credits: 3 },
-                { name: 'COAL Lab', credits: 1 },
-                { name: 'Database Theory', credits: 3 },
-                { name: 'Database Lab', credits: 1 },
-                { name: 'OS Theory', credits: 3 },
-                { name: 'OS Lab', credits: 1 },
-                { name: 'Logic and Critical Thinking', credits: 3 },
-                { name: 'Software Engineering', credits: 3 }
-            ]
-        },
-        {
-            semester: 5,
-            subjects: [
-                { name: 'Networking Theory', credits: 3 },
-                { name: 'Networking Lab', credits: 1 },
-                { name: 'Entrepreneurship', credits: 3 },
-                { name: 'Theory of Automata', credits: 3 },
-                { name: 'Numerical Computing', credits: 3 },
-                { name: 'Data Mining', credits: 3 }
-            ]
         }
     ];
 
@@ -220,7 +196,7 @@ function updateCGPA() {
     });
 
     const cumulativeGPA = totalCredits > 0 ? (totalWeightedGPA / totalCredits) : 0;
-    document.getElementById('cGPA').textContent = `Cumulative GPA (cGPA): ${cumulativeGPA.toFixed(3)}`;
+    document.getElementById('cGPA').textContent = `Cumulative GPA (cGPA): ${cumulativeGPA.toFixed(2)}`;
 }
 
 function marksToGPA(marks) {

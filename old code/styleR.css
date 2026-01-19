@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+body {
+    font-family: Inter, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #333;
+    font-size: 16px;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+}
+
+h2, h3, h4 {
+    margin: 20px 10px;
+}
+
+.degree-selector {
+    margin-bottom: 20px;
+    font-size: large;
+    font-weight: bold;
+}
+
+.add-btn {
+    background-color: #1a5c99 !important;
+}
+
+.semester {
+    margin-bottom: 20px;
+    padding: 15px;
+}
+
+.subject {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    padding: 15px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.subject-style {
+    flex: 2;
+    text-align: left;
+}
+
+.marks-style {
+    flex: 1;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.credits {
+    flex: 1;
+    text-align: right;
+    margin-left: auto;
+    font-weight: 500;
+    color: #444;
+}
+
+.subject input,
+.subject select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.95em;
+    width: 120px;
+}
+
+.subject input[type="text"] {
+    width: 100%;
+}
+
+.subject .subject-name {
+    font-weight: 500;
+    padding: 8px 0;
+    color: #222;
+}
+
+.buttons {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.buttons button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 6px;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.buttons button:hover {
+    background-color: #555;
+}
+
+#cGPA {
+    text-align: center;
+    font-size: 1.2em;
+    margin-top: 20px;
+    padding: 12px;
+    background-color: #c43f1e;
+    color: #fff;
+    border-radius: 8px;
+    font-weight: bold;
+    position: sticky;
+    bottom: 0;
+}
+
+footer {
+    text-align: center;
+    padding: 25px 0;
+    color: #000000;
+    font-size: 1em;
+    border-top: 3px solid #c43f1e;
+}
+
+footer a {
+    text-decoration: none;
+    color: #1a5c99;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .subject {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .subject-style,
+    .marks-style,
+    .credits {
+        width: 100%;
+        flex: none;
+        text-align: left;
+    }
+
+    .marks-style {
+        justify-content: flex-start;
+    }
+
+    .credits {
+        text-align: left;
+        margin-left: 0;
+    }
+
+    .subject input,
+    .subject select {
+        width: 100%;
+    }
+}
