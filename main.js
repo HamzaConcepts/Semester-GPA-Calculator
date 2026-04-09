@@ -64,6 +64,19 @@ function addBSCSContent() {
                 { name: 'Numerical Computing', credits: 3 },
                 { name: 'Data Mining', credits: 3 }
             ]
+        },
+        {
+            semester: 6,
+            subjects: [
+                { name: 'HCI Theory', credits: 2 },
+                { name: 'HCI Lab', credits: 1 },   
+                { name: 'ML Theory', credits: 2 },
+                { name: 'ML Lab', credits: 1 },
+                { name: 'Professional Practices', credits: 3 },
+                { name: 'Compiler Construction', credits: 3 },
+                { name: 'DAA', credits: 3 },
+                { name: 'Web Engineering', credits: 3 }
+            ]
         }
     ];
 
